@@ -4,18 +4,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.project.ruddle.adapters.PostAdapter;
 import com.project.ruddle.constants.References;
-import com.project.ruddle.handlers.NavigationHandler;
+import com.project.ruddle.post.NewPostActivity;
 import com.project.ruddle.verification.LoginActivity;
 
 import org.json.JSONArray;
@@ -45,8 +47,6 @@ public class HomeActivity extends AppCompatActivity {
         TextView nameTV = (TextView) findViewById(R.id.home_name);
         nameTV.setText("Welcome, " + name);
 
-
-        //TODO add NavigationHandler to here (or make it extend it or something), and there just change the fragments in it
         loadAllPostsList();
 
     }
@@ -83,7 +83,27 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadAllPostsList() {
-        NavigationHandler.listen(this, (BottomNavigationView) findViewById(R.id.navigation_home)); //this will be deleted
+        BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.navigation_home:
+                                return true;
+                            case R.id.navigation_profile:
+                                return true;
+                            case R.id.navigation_new_post:
+                                startActivity(new Intent(HomeActivity.this, NewPostActivity.class));
+                                return true;
+                            case R.id.navigation_in_progress:
+                                return true;
+                        }
+                        return false;
+                    }
+                };
+
+        BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.navigation_home);
+        bnv.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         recyclerView = (RecyclerView) findViewById(R.id.home_posts_list);
         recyclerView.setHasFixedSize(true);

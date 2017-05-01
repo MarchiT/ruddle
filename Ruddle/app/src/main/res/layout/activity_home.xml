@@ -17,7 +17,6 @@
         android:background="?android:windowBackground"
         android:layout_alignParentBottom="true"
         app:menu="@menu/navigation">
-
     </android.support.design.widget.BottomNavigationView>
 
     <TextView
