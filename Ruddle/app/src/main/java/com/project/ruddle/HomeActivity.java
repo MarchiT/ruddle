@@ -1,22 +1,21 @@
 package com.project.ruddle;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.project.ruddle.adapters.PostAdapter;
 import com.project.ruddle.constants.References;
+import com.project.ruddle.handlers.PostsFragment;
 import com.project.ruddle.post.NewPostActivity;
 import com.project.ruddle.verification.LoginActivity;
 
@@ -24,22 +23,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.project.ruddle.handlers.RequestHandler.sendGet;
 
 public class HomeActivity extends AppCompatActivity {
 
-    public List<String> postDataset = new ArrayList<>();
-
-    public RecyclerView recyclerView;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ArrayList<String> postDataset = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
 
         SharedPreferences settings = getSharedPreferences(References.USER, MODE_PRIVATE);
         String name = settings.getString("name", "user");
@@ -50,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
         loadAllPostsList();
 
     }
-
 
     private class GetPostsTask extends AsyncTask<Void, Void, String> {
         @Override
@@ -75,20 +68,15 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void refreshContent(RecyclerView recyclerView){
-        new GetPostsTask().execute();
 
-        PostAdapter mAdapter = new PostAdapter(postDataset);
-        recyclerView.setAdapter(mAdapter);
-    }
-
-    public void loadAllPostsList() {
+    private void loadAllPostsList() {
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
+                                loadPostsFragment();
                                 return true;
                             case R.id.navigation_profile:
                                 return true;
@@ -105,26 +93,21 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.navigation_home);
         bnv.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        recyclerView = (RecyclerView) findViewById(R.id.home_posts_list);
-        recyclerView.setHasFixedSize(true);
-
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-
-        refreshContent(recyclerView);
-
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshContent(recyclerView);
-                //TODO implement proper refresh
-                TextView nameTV = (TextView) findViewById(R.id.home_name); //it refreshes if new Activity starts
-                nameTV.setText("this is bullshit");
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        loadPostsFragment();
     }
+
+    private void loadPostsFragment() {
+        Fragment fragment = new PostsFragment();
+        Bundle args = new Bundle();
+        new GetPostsTask().execute(); //maybe add here as a parameter the url to the needed GET request
+        args.putStringArrayList("titles", postDataset);
+        fragment.setArguments(args);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.list_posts_frame, fragment).commit();
+    }
+
+
 
 
     public void logOut(View view) {
@@ -137,4 +120,5 @@ public class HomeActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, LoginActivity.class));
     }
+
 }
