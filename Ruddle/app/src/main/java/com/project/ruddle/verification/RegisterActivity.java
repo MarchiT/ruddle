@@ -13,6 +13,7 @@ import com.project.ruddle.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.project.ruddle.constants.References.SERVER_URL;
 import static com.project.ruddle.handlers.RequestHandler.sendPostStatus;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -53,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
                 e.printStackTrace();
                 return false;
             }
-            return sendPostStatus("http://10.0.2.2:8000/register", urlParams);
+            return sendPostStatus(SERVER_URL + "register", urlParams);
         }
 
         @Override

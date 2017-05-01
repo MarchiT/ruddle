@@ -31,3 +31,11 @@ Route::post('/login', 'SignInController@login');
 
 Route::get('/posts', 'PostController@index');
 Route::post('/posts', 'PostController@store');
+Route::get('/post/{post}', 'PostController@show');
+
+
+Route::get('/posts/created/{user_id}', 'UserPostController@created');
+Route::get('/posts/solved/{user_id}', 'UserPostController@solved');
+Route::get('/posts/inprogress/{user_id}', 'UserPostController@inprogress');
+
+Route::get('/posts/userpost', 'UserPostController@index');

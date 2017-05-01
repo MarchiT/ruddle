@@ -41,6 +41,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static com.project.ruddle.constants.References.SERVER_URL;
 import static com.project.ruddle.handlers.RequestHandler.sendPostMessage;
 
 
@@ -303,7 +304,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return e.getMessage();
             }
 
-            return sendPostMessage("http://10.0.2.2:8000/login", urlParams);
+            return sendPostMessage(SERVER_URL + "login", urlParams);
         }
 
         @Override
@@ -324,7 +325,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // We need an Editor object to make preference changes.
                 //SharedPreferences settings = getSharedPreferences(References.USER, 0); // 0 - MODE_PRIVATE
 
-                saveInformation(root.getInt("id"), root.getString("name"),root.getString("email"));
+                saveInformation(root.getLong("id"), root.getString("name"),root.getString("email"));
 
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
 
@@ -342,16 +343,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
 
-        private void saveInformation(Integer id, String name, String password) {
+        private void saveInformation(Long id, String name, String email) {
             SharedPreferences shared = getSharedPreferences(References.USER, MODE_PRIVATE);
             SharedPreferences.Editor editor = shared.edit();
-
             editor.clear();
             editor.putBoolean("hasLoggedIn", true);
 
-            editor.putInt("id", id);
+            editor.putString("user_id", id.toString());
             editor.putString("name", name);
-            editor.putString("password", password);
+            editor.putString("email", email);
 
             editor.apply();
         }

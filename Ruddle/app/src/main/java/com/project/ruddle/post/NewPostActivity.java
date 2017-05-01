@@ -16,10 +16,11 @@ import org.json.JSONObject;
 
 import static com.project.ruddle.R.id.answer;
 import static com.project.ruddle.R.id.body;
+import static com.project.ruddle.constants.References.SERVER_URL;
 import static com.project.ruddle.handlers.RequestHandler.sendPostStatus;
 
 public class NewPostActivity extends AppCompatActivity {
-    //TODO add validation for here too
+    //TODO add validation for here too & connect with UserPost
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class NewPostActivity extends AppCompatActivity {
                 return false;
             }
 
-            return sendPostStatus("http://10.0.2.2:8000/posts", urlParams);
+            return sendPostStatus(SERVER_URL + "posts", urlParams);
         }
 
         @Override
