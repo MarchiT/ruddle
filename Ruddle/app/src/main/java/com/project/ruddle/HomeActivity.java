@@ -34,24 +34,26 @@ public class HomeActivity extends AppCompatActivity {
 
     private JSONObject currentJson = new JSONObject();
 
+//
+//    private interface OnResponse {
+//        void onResponse();
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         SharedPreferences settings = getSharedPreferences(References.USER, MODE_PRIVATE);
-        String name = settings.getString("user_id", "user");
+        String name = settings.getString("name", "user");
 
         TextView nameTV = (TextView) findViewById(R.id.home_name);
         nameTV.setText("Welcome, " + name);
 
 
         getAllPosts();
-        loadPostsFragment();
 
-
-        loadAllPostsList();
-
+        NavigationToggle();
     }
 
     private class GetPostsTask extends AsyncTask<String, String, String> {
@@ -65,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             try {
                 addPosts(new JSONArray(s));
+                loadPostsFragment();
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e("JSON: ", "HomeActivity GetPostsTask adding failed");
@@ -81,7 +84,6 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             try {
-//                JSONObject post = new JSONObject(s);
                 currentJson = new JSONObject(s);
                 Log.e("currentJson", currentJson.toString());
             } catch (JSONException e) {
@@ -100,7 +102,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             try {
-                addPosts(new JSONObject(s));
+                addPosts(new JSONObject(s)); //add a specific backend GET
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e("JSON: ", "HomeActivity GetSpecificPosts adding failed");
@@ -117,9 +119,9 @@ public class HomeActivity extends AppCompatActivity {
     private void addPosts(JSONObject posts) throws JSONException {
         for (Integer i = 0; i < posts.length(); i++) {
             JSONObject indexPost = (JSONObject) posts.get(i.toString());
-            //make GET to /post/{id} and take the title at this stage
+
             new GetPostTask().execute(indexPost.get("post_id").toString());
-            Log.e("currentJson", currentJson.get("title").toString());
+            Log.e("currentJson", currentJson.get("title").toString());//{}
 
 //            postDataset.add(currentJson.get("title").toString());
             postDataset.add(indexPost.get("post_id").toString());
@@ -127,7 +129,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void loadAllPostsList() {
+    private void NavigationToggle() {
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -136,10 +138,6 @@ public class HomeActivity extends AppCompatActivity {
                             case R.id.navigation_home:
                                 Log.e("Home", "entered");
                                 getAllPosts();
-                                //1. it needs to be pressed twice to display stuff, why?
-                                //changes apply only after the second click ??
-                                //2. if clicked once more (doesn't refresh) but keeps adding the new posts below the old ones
-                                loadPostsFragment();
                                 return true;
                             case R.id.navigation_profile:
                                 Log.e("Profile", "entered");
@@ -150,8 +148,7 @@ public class HomeActivity extends AppCompatActivity {
                                 return true;
                             case R.id.navigation_in_progress:
                                 Log.e("InProgress", "entered");
-                                getCreatedPosts();
-                                loadAllPostsList();
+//                                getCreatedPosts();
                                 return true;
                         }
                         return false;
@@ -160,13 +157,9 @@ public class HomeActivity extends AppCompatActivity {
 
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.navigation_home);
         bnv.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-//        loadPostsFragment();
     }
 
     private void loadPostsFragment() {
-//        getCreatedPosts();
-
         Fragment fragment = new PostsFragment();
         Bundle args = new Bundle();
 
