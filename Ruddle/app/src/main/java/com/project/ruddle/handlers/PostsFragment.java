@@ -37,7 +37,7 @@ public class PostsFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //TODO implement proper refresh
+                //TODO implement proper refresh : depending on nav pos different Listener
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });

@@ -28,7 +28,13 @@ class User extends Authenticatable
     ];
 
 
-    public function posts() {
-      return $this->hasMany(UserPost::class);
+    public function userPosts() {
+      $array = $this->hasMany(UserPost::class); //TODO find a way to sort them by created_at
+
+      // $array = array_values(array_sort($array, function ($value) {
+      //     return $value['created_at'];
+      // }));
+      return $array;
+
     }
 }
