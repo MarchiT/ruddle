@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import com.project.ruddle.R;
 import com.project.ruddle.adapters.PostAdapter;
 
-import java.util.ArrayList;
-
 public class PostsFragment extends Fragment {
     @Nullable
     @Override
@@ -28,10 +26,9 @@ public class PostsFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
 
 
-        ArrayList<String> postTitles = getArguments().getStringArrayList("titles");
-
-        PostAdapter mAdapter = new PostAdapter(postTitles);
+        PostAdapter mAdapter = new PostAdapter(getArguments().getString("posts")); //TODO get user data too
         recyclerView.setAdapter(mAdapter);
+
 
         final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -27,6 +27,7 @@
         <activity android:name=".verification.LoginActivity" />
         <activity android:name=".verification.RegisterActivity" />
         <activity android:name=".post.NewPostActivity" />
+        <activity android:name=".post.PostActivity"></activity>
     </application>
 
 </manifest>

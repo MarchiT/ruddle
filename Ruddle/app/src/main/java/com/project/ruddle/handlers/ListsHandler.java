@@ -16,15 +16,13 @@ import com.project.ruddle.fragments.PostsFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
-
 import static android.content.Context.MODE_PRIVATE;
 import static com.project.ruddle.constants.References.SERVER_URL;
 import static com.project.ruddle.handlers.RequestHandler.sendGet;
 
 public class ListsHandler implements PostLists {
 
-    private HomeActivity ctx; //should it be bound to the HomeActivity class
+    private HomeActivity ctx;
 
 
     public ListsHandler(HomeActivity context) {
@@ -40,7 +38,7 @@ public class ListsHandler implements PostLists {
         @Override
         protected void onPostExecute(String s) {
             try {
-                addPosts(new JSONArray(s));
+                ctx.posts = new JSONArray(s);
                 loadPostsFragment();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -49,22 +47,16 @@ public class ListsHandler implements PostLists {
         }
     }
 
-    private void addPosts(JSONArray posts) throws JSONException {
-        for (int i = 0; i < posts.length(); i++) {
-            ctx.postDataset.add(posts.getJSONObject(i).get("title").toString());
-        }
-    }
 
     private void loadPostsFragment() {
         Fragment postsFragment = new PostsFragment();
         Bundle args = new Bundle();
 
-        args.putStringArrayList("titles", ctx.postDataset);
+        args.putString("posts", ctx.posts.toString());
         postsFragment.setArguments(args);
 
         FragmentManager fragmentManager = ctx.getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.list_posts_frame, postsFragment).commit();
-        ctx.postDataset = new ArrayList<>();
     }
 
 
@@ -85,7 +77,7 @@ public class ListsHandler implements PostLists {
         new GetPostsTask().execute(SERVER_URL + "posts/solved/" + getUserId());
     }
 
-    private String getUserId() {
+    public String getUserId() {
         SharedPreferences settings = ctx.getSharedPreferences(References.USER, MODE_PRIVATE);
         return settings.getString("user_id", "0");
     }

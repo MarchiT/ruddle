@@ -17,11 +17,12 @@ import com.project.ruddle.handlers.PostLists;
 import com.project.ruddle.post.NewPostActivity;
 import com.project.ruddle.verification.LoginActivity;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
 
 public class HomeActivity extends AppCompatActivity {
 
-    public ArrayList<String> postDataset = new ArrayList<>();
+    public JSONArray posts;
+
     private PostLists listsHandler = new ListsHandler(this);
 
 
@@ -38,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
         listsHandler.getAllPosts();
 
