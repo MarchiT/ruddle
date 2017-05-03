@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".verification.LoginActivity"
+            android:name=".HomeActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".verification.LoginActivity" />
         <activity android:name=".verification.RegisterActivity" />
-        <activity android:name=".HomeActivity" />
         <activity android:name=".post.NewPostActivity" />
-        <activity android:name=".lists.ProfileActivity"></activity>
     </application>
 
 </manifest>

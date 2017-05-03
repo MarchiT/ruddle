@@ -3,16 +3,19 @@ package com.project.ruddle;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.project.ruddle.constants.References;
 import com.project.ruddle.fragments.ProfileFragment;
 import com.project.ruddle.handlers.ListsHandler;
 import com.project.ruddle.handlers.PostLists;
 import com.project.ruddle.post.NewPostActivity;
+import com.project.ruddle.verification.LoginActivity;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,15 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences settings = getSharedPreferences(References.USER, 0);
+        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
+        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
+
+        if(!hasLoggedIn) {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 

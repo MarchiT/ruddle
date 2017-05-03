@@ -64,15 +64,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences settings = getSharedPreferences(References.USER, 0);
-        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
-        boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
-
-        if(hasLoggedIn) {
-            startActivity(new Intent(this, HomeActivity.class));
-        }
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
