@@ -1,4 +1,4 @@
-package com.project.ruddle.handlers;
+package com.project.ruddle.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class PostsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.list_posts_layout, container, false);
+        final View rootView = inflater.inflate(R.layout.list_posts_layout, container, false);
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.home_posts_list);
         recyclerView.setHasFixedSize(true);

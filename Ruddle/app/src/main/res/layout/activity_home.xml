@@ -19,26 +19,6 @@
         app:menu="@menu/navigation">
     </android.support.design.widget.BottomNavigationView>
 
-    <TextView
-        android:id="@+id/home_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:layout_below="@+id/buttonLogOut"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
-
-    <Button
-        android:id="@+id/buttonLogOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="logOut"
-        android:text="Log out?"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
     <FrameLayout
         android:id="@+id/list_posts_frame"
         android:layout_width="match_parent"
