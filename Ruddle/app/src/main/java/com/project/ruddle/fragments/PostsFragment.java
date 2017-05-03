@@ -3,6 +3,7 @@ package com.project.ruddle.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,18 +26,15 @@ public class PostsFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
 
 
-        PostAdapter mAdapter = new PostAdapter(getArguments().getString("posts")); //TODO get user data too
+        PostAdapter mAdapter = new PostAdapter(getArguments().getString("posts"), getActivity()); //TODO get user data too
         recyclerView.setAdapter(mAdapter);
 
 
-//        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeToRefresh);
-//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                //TODO implement proper refresh : depending on nav pos different Listener
-//                mSwipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
+        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            //TODO implement proper refresh : depending on nav pos different Listener
+            mSwipeRefreshLayout.setRefreshing(false);
+        });
 
         return rootView;
     }

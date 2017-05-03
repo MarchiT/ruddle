@@ -1,6 +1,8 @@
 package com.project.ruddle.adapters;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,15 +11,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.project.ruddle.R;
+import com.project.ruddle.post.PostActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
+    private Context context;
+
     private JSONArray posts;
 
-    public PostAdapter (String posts) {
+
+    public PostAdapter (String posts, Context context) {
+        this.context = context;
         try {
             this.posts = new JSONArray(posts);
         } catch (JSONException e) {
@@ -48,29 +55,29 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 //    }
 
     @Override
-    public PostAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PostAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_layout, parent, false);
+        view.setOnClickListener((v -> {
+            int itemPosition = ((RecyclerView)parent).getChildLayoutPosition(view);
+            Intent intent = new Intent(new Intent(context, PostActivity.class));
+            try {
+                intent.putExtra("post", posts.getJSONObject(itemPosition).toString());
+            } catch (JSONException e) {
+                Log.e("PostAdapter", "onCreateViewHolder");
+            }
+            context.startActivity(intent);
+        }));
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         try {
-//          final String name = posts.get(position).get("title");
             holder.txtHeader.setText(posts.getJSONObject(position).getString("title"));
-            holder.txtFooter.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-    //                Intent post = new Intent(this, PostActivity.class);
-    //                post.putExtra("Title", )
-    //                startActivity(post);
-                }
-            });
             holder.txtFooter.setText(posts.getJSONObject(position).getString("body"));
         } catch (JSONException e) {
             Log.e("PostAdapter", "JSONArray position wrong");
         }
-
     }
 
     @Override
