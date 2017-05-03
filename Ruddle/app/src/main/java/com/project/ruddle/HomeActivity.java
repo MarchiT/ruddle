@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -23,7 +24,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public JSONArray posts;
 
-    private PostLists listsHandler = new ListsHandler(this);
+    private final PostLists listsHandler = new ListsHandler(this);
+
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
     @Override
@@ -44,6 +48,18 @@ public class HomeActivity extends AppCompatActivity {
         listsHandler.getAllPosts();
 
         NavigationToggle();
+
+
+//        this.mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh);
+//
+//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                //TODO implement proper refresh : depending on nav pos different Listener
+//
+//                mSwipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
     }
 
 
@@ -55,6 +71,9 @@ public class HomeActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
                                 listsHandler.getAllPosts();
+                                mSwipeRefreshLayout.setOnRefreshListener(() -> {
+                                    mSwipeRefreshLayout.setRefreshing(false);
+                                });
                                 return true;
                             case R.id.navigation_profile:
                                 Fragment profileFragment = new ProfileFragment();

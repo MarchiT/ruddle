@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="true">
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name">
@@ -27,7 +28,7 @@
         <activity android:name=".verification.LoginActivity" />
         <activity android:name=".verification.RegisterActivity" />
         <activity android:name=".post.NewPostActivity" />
-        <activity android:name=".post.PostActivity"></activity>
+        <activity android:name=".post.PostActivity"/>
     </application>
 
 </manifest>
