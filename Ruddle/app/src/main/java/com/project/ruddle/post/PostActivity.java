@@ -26,25 +26,22 @@ import static com.project.ruddle.handlers.RequestHandler.sendPostStatus;
 public class PostActivity extends AppCompatActivity {
 
     private JSONObject post;
-    private String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        String status = null;
         try {
             post = new JSONObject(getIntent().getStringExtra("post"));
-            status = getIntent().getStringExtra("status");
-            //for now
-            if (status == null) {
-                status = "inprogress";
-            }
+            status = post.getString("tag");
         } catch (JSONException e) {
             Log.e("PostActivity", "onCreate");
         }
+        Log.e("AAAAAAAAAAAA", post.toString());
 
-//        TextView username = (TextView) findViewById(R.id.username);
+        TextView usernameView = (TextView) findViewById(R.id.username);
 
         TextView titleView = (TextView) findViewById(R.id.title);
         TextView bodyView = (TextView) findViewById(R.id.body);
@@ -52,11 +49,13 @@ public class PostActivity extends AppCompatActivity {
         try {
             titleView.setText(post.getString("title"));
             bodyView.setText(post.getString("body"));
+            usernameView.setText(post.getString("name"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if (status.equals("created")) {
+        //TODO when inprogress implemented set tag "inprogress"
+        if (status == null || (status.equals("created") || status.equals("solved"))) {
             EditText answer = (EditText) findViewById(R.id.answer);
             Button submit = (Button) findViewById(R.id.submit);
             answer.setVisibility(View.GONE);
@@ -99,8 +98,9 @@ public class PostActivity extends AppCompatActivity {
                 urlParams.put("post_id", post.getString("id"));
                 urlParams.put("tag", "solved");
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e("TagRegisterTask", e.getMessage());
             }
+            Log.e("POST ACTIVITY", urlParams.toString());
             return sendPostStatus(SERVER_URL + "userposts", urlParams);
         }
 

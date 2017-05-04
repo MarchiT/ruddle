@@ -61,9 +61,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             int itemPosition = ((RecyclerView)parent).getChildLayoutPosition(view);
             Intent intent = new Intent(new Intent(context, PostActivity.class));
             try {
-                Log.wtf("json contains: ", posts.toString());
-//                TODO JSONArray posts must contain choices [& users]
-//                intent.putExtra("status", "created|solved");
                 intent.putExtra("post", posts.getJSONObject(itemPosition).toString());
             } catch (JSONException e) {
                 Log.e("PostAdapter", "onCreateViewHolder");

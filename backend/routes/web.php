@@ -29,15 +29,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/register', 'SignInController@register');
 Route::post('/login', 'SignInController@login');
 
-Route::get('/posts', 'PostController@index');
-Route::post('/posts', 'PostController@store');
-Route::get('/post/{post}', 'PostController@show');
-
 
 Route::get('/posts/created/{user_id}', 'UserPostController@created');
 Route::get('/posts/solved/{user_id}', 'UserPostController@solved');
 Route::get('/posts/inprogress/{user_id}', 'UserPostController@inprogress');
 
+Route::get('/posts/userpost', 'UserPostController@index');
+
 Route::post('/userposts', 'UserPostController@create');
 
-Route::get('/posts/userpost', 'UserPostController@index');
+
+Route::post('/posts', 'PostController@store');
+Route::get('/posts/{user_id}', 'PostController@index');
+Route::get('/post/{post}', 'PostController@show');

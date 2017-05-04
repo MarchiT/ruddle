@@ -29,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/image"
         android:layout_alignStart="@+id/username"
-        android:text="time posted" />
+        android:text="time posted"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/title"

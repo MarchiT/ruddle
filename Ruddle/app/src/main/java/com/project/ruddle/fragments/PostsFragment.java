@@ -26,7 +26,7 @@ public class PostsFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
 
 
-        PostAdapter mAdapter = new PostAdapter(getArguments().getString("posts"), getActivity()); //TODO get user data too
+        PostAdapter mAdapter = new PostAdapter(getArguments().getString("posts"), getActivity());
         recyclerView.setAdapter(mAdapter);
 
 

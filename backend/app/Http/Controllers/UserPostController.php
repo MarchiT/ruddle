@@ -38,7 +38,7 @@ class UserPostController extends Controller
     return $this->putIntoArray($user_posts);
   }
 
-  public function inprogress($user_id) { //1.return an error if tag missing 2. doesnt find helper function
+  public function inprogress($user_id) {
     return $this->putIntoArray(User::find($user_id)->userPosts->where('choices', 'inprogress'));
   }
 
@@ -48,7 +48,15 @@ class UserPostController extends Controller
     $i = 0;
 
     foreach ($user_posts as $up) {
-      $data[$i++] = $up->posts->first();
+      $item = $up->posts->first();
+      $user = $up->users->first();
+      // $item['choices'] = $user_posts->first()['choices'];
+      $item['name'] = $user['name'];
+      $item['email'] = $user['email'];
+      $item['created_at'] = $user['created_at'];
+      $item['updated_at'] = $user['updated_at'];
+
+      $data[$i++] = $item;
     }
 
     return $data;

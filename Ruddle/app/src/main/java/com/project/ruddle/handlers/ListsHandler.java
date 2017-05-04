@@ -38,12 +38,11 @@ public class ListsHandler implements PostLists {
         @Override
         protected void onPostExecute(String s) {
             try {
-                //TODO here JSONArray must contain also +users and +status
                 ctx.posts = new JSONArray(s);
                 loadPostsFragment();
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.e("JSON: ", "HomeActivity GetPostsTask adding failed");
+                Log.e("ListHandler POST failed", s);
             }
         }
     }
@@ -63,7 +62,7 @@ public class ListsHandler implements PostLists {
 
     @Override
     public void getAllPosts() {
-        new GetPostsTask().execute(SERVER_URL + "posts");
+        new GetPostsTask().execute(SERVER_URL + "posts/" + getUserId());
     }
     @Override
     public void getCreatedPosts() {

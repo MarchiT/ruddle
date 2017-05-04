@@ -6,14 +6,43 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use App\UserPost;
-
+use App\User;
 
 class PostController extends Controller
 {
-  public function index() {
+  public function index($id) {
     $posts = Post::latest()->get()->all();
-    return $posts;
+    // return $posts;
+    return $this->putIntoArray($posts, $id);
   }
+
+  public function putIntoArray($posts, $id) {
+    $data = array();
+    $i = 0;
+
+    foreach ($posts as $post) {
+      $creatorId = $post->postUserCreator->first();
+      $user = User::find($creatorId->user_id);
+
+      $item['id'] = $post->id;
+      $item['title'] = $post->title;
+      $item['body'] = $post->body;
+      $item['answer'] = $post->answer;
+      $item['name'] = $user->name;
+      $item['email'] = $user->email;
+
+      $relationUserCurrentPost = User::find($id)->userPosts->where('post_id', $post->id)->first();
+      if ($relationUserCurrentPost != null)
+        $item['tag'] = $relationUserCurrentPost->choices;
+      else
+        $item['tag'] = '';
+
+      $data[$i++] = $item;
+    }
+
+    return $data;
+  }
+
 
   public function show(Post $post) {
     return $post;
@@ -37,4 +66,5 @@ class PostController extends Controller
         'choices' => $data['tag'],
     ]);
   }
+
 }
