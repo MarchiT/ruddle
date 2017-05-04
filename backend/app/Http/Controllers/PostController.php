@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Post;
+use App\UserPost;
 
 
 class PostController extends Controller
@@ -24,10 +25,16 @@ class PostController extends Controller
   public function store() {
     $data = request()->json()->all();
 
-    Post::create([
+    $createdPost = Post::create([
         'title' => $data['title'],
         'body' => $data['body'],
         'answer' => $data['answer'],
+    ]);
+
+    UserPost::create([
+        'user_id' => (int)$data['id'],
+        'post_id' => $createdPost['id'],
+        'choices' => $data['tag'],
     ]);
   }
 }
