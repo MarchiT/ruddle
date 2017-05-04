@@ -15,6 +15,17 @@ class UserPostController extends Controller
     return $user_posts;
   }
 
+  public function create() {
+    $data = request()->json()->all();
+
+    UserPost::create([
+        'user_id' => (int)$data['user_id'],
+        'post_id' => (int)$data['post_id'],
+        'choices' => $data['tag'],
+    ]);
+  }
+
+
   public function created($user_id) {
     $user = User::find($user_id);
     $user_posts = $user->userPosts->where('choices', 'created');

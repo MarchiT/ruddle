@@ -38,6 +38,7 @@ public class ListsHandler implements PostLists {
         @Override
         protected void onPostExecute(String s) {
             try {
+                //TODO here JSONArray must contain also +users and +status
                 ctx.posts = new JSONArray(s);
                 loadPostsFragment();
             } catch (JSONException e) {

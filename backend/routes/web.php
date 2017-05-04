@@ -38,4 +38,6 @@ Route::get('/posts/created/{user_id}', 'UserPostController@created');
 Route::get('/posts/solved/{user_id}', 'UserPostController@solved');
 Route::get('/posts/inprogress/{user_id}', 'UserPostController@inprogress');
 
+Route::post('/userposts', 'UserPostController@create');
+
 Route::get('/posts/userpost', 'UserPostController@index');

@@ -71,7 +71,7 @@ public class NewPostActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean success) {
             if(success){
-                Toast.makeText(NewPostActivity.this, "Post uplo aded.", Toast.LENGTH_LONG).show();
+                Toast.makeText(NewPostActivity.this, "Post uploaded.", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(NewPostActivity.this, HomeActivity.class));
             } else {
                 Toast.makeText(NewPostActivity.this, "Invalid input", Toast.LENGTH_LONG).show();
