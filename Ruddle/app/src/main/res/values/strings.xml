@@ -18,7 +18,7 @@
     <string name="prompt_name">Username</string>
 
     <string name="register">Register</string>
-    <string name="action_register">New? Register</string>
+    <string name="action_register">Register</string>
 
     <string name="footbar_home">Home</string>
     <string name="footbar_profile">Profile</string>
