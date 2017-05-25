@@ -22,7 +22,7 @@ import static com.project.ruddle.constants.References.SERVER_URL;
 import static com.project.ruddle.handlers.RequestHandler.sendPostStatus;
 
 public class NewPostActivity extends AppCompatActivity {
-    //TODO add validation for here too & connect with UserPost
+    //TODO add validation for here too
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
