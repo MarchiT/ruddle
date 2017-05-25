@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop" />
-            <!-- android:src="@mipmap/ic_profile_header"/>    Problem: Deterioration of image quality-->
+            <!-- android:src="@mipmap/ic_profile_header"/> Problem: Image quality deterioration-->
 
         <ImageButton
             android:id="@+id/profile_icon"
@@ -118,6 +118,26 @@
                 android:elevation="4dp"
                 android:padding="20dp"
                 android:text="Log Out" />
+
+            <android.support.design.widget.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Left" />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Center" />
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Right" />
+            </android.support.design.widget.TabLayout>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>
