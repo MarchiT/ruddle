@@ -34,46 +34,28 @@ public class ProfileFragment extends Fragment {
 
 
         Button logOut = (Button) rootView.findViewById(R.id.log_out);
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences settings = getActivity().getSharedPreferences(References.USER, MODE_PRIVATE);
-                SharedPreferences.Editor editor = settings.edit();
+        logOut.setOnClickListener(v -> {
+            SharedPreferences settings1 = getActivity().getSharedPreferences(References.USER, MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings1.edit();
 
-                editor.putBoolean("hasLoggedIn", false);
+            editor.putBoolean("hasLoggedIn", false);
 
-                editor.apply();
+            editor.apply();
 
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-            }
+            startActivity(new Intent(getActivity(), LoginActivity.class));
         });
 
 
-        final PostLists lists = new ListsHandler((HomeActivity)getActivity()); //ClassException?
+        final PostLists lists = new ListsHandler((HomeActivity)getActivity());
 
         Button inProgressList = (Button) rootView.findViewById(R.id.inprogress);
-        inProgressList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lists.getInProgressPosts();
-            }
-        });
+        inProgressList.setOnClickListener(v -> lists.getInProgressPosts());
 
         Button solvedList = (Button) rootView.findViewById(R.id.solved);
-        solvedList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lists.getSolvedPosts();
-            }
-        });
+        solvedList.setOnClickListener(v -> lists.getSolvedPosts());
 
         Button createdList = (Button) rootView.findViewById(R.id.created);
-        createdList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lists.getCreatedPosts();
-            }
-        });
+        createdList.setOnClickListener(v -> lists.getCreatedPosts());
 
 
         return rootView;
