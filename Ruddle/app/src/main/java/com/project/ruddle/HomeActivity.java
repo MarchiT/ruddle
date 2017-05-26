@@ -5,12 +5,13 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.project.ruddle.adapters.PictureAdapter;
 import com.project.ruddle.constants.References;
 import com.project.ruddle.fragments.ProfileFragment;
 import com.project.ruddle.handlers.ListsHandler;
@@ -25,6 +26,37 @@ public class HomeActivity extends AppCompatActivity {
     public JSONArray posts;
 
     private final PostLists listsHandler = new ListsHandler(this);
+
+    private boolean doubleBackToExitPressedOnce;
+    private Handler mHandler = new Handler();
+
+    private final Runnable mRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            doubleBackToExitPressedOnce = false;
+        }
+    };
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        if (mHandler != null) { mHandler.removeCallbacks(mRunnable); }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Click twice to exit", Toast.LENGTH_SHORT).show();
+
+        mHandler.postDelayed(mRunnable, 2000);
+    }
 
 
     @Override
@@ -61,8 +93,6 @@ public class HomeActivity extends AppCompatActivity {
                                 Fragment profileFragment = new ProfileFragment();
                                 FragmentManager fragmentManager = getFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.list_posts_frame, profileFragment).commit();
-                                AppCompatActivity pictureAdapter = new PictureAdapter();
-                                
                                 return true;
                             case R.id.navigation_new_post:
                                 startActivity(new Intent(HomeActivity.this, NewPostActivity.class));
