@@ -8,7 +8,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_incorrect_password">This password or email is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -40,5 +40,12 @@
     <string name="new_post_hint_title">Title</string>
     <string name="new_post_hint_body">Body</string>
     <string name="new_post_hint_answer">Answer</string>
+
+    <!-- Strings related to Post Activity -->
+    <string name="post_username">Username</string>
+    <string name="post_title">Title</string>
+    <string name="post_body">Body</string>
+    <string name="post_answer_hint">Enter answer</string>
+    <string name="post_submit">Submit</string>
 
 </resources>

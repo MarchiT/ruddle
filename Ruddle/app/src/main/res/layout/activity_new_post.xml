@@ -11,34 +11,34 @@
         android:layout_alignBaseline="@+id/answer"
         android:layout_alignBottom="@+id/answer"
         android:layout_alignParentEnd="true"
-        android:onClick="submitPost"
         android:background="#41ba7a"
         android:ellipsize="marquee"
+        android:onClick="submitPost"
         android:text="@string/new_post_button_submit" />
 
     <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/new_post_hint_title"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/submit_button"
-        android:layout_alignParentStart="true" />
+        android:hint="@string/new_post_hint_title" />
 
     <EditText
         android:id="@+id/answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/new_post_hint_answer"
-        android:layout_toStartOf="@+id/submit_button" />
+        android:layout_toStartOf="@+id/submit_button"
+        android:hint="@string/new_post_hint_answer" />
 
     <EditText
         android:id="@+id/body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="top|start"
-        android:hint="@string/new_post_hint_body"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/title" />
+        android:layout_below="@+id/title"
+        android:gravity="top|start"
+        android:hint="@string/new_post_hint_body" />
 </RelativeLayout>
 
