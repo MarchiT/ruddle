@@ -43,18 +43,14 @@ public class RegisterActivity extends AppCompatActivity {
             password = editPassword.getText().toString();
             email = editEmail.getText().toString();
 
-            //return back and write message
+           //return back and write message
             if (!isDataValid(name, password, email)) {
                 Toast.makeText(this, "Wrong email or password", Toast.LENGTH_SHORT).show();
-
-                focusView.requestFocus();
-                //this.recreate();
-               // startActivity(new Intent( RegisterActivity.class));
-
+                startActivity(new Intent(this, RegisterActivity.class));
+            }else {
+                UserRegisterTask b = new UserRegisterTask();
+                b.execute(name, email, password);
             }
-
-        UserRegisterTask b = new UserRegisterTask();
-        b.execute(name, email, password);
     }
 
     private boolean isDataValid(String name, String password, String email) {
