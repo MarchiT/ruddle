@@ -35,13 +35,13 @@ public class ProfileFragment extends Fragment {
 
         Button logOut = (Button) rootView.findViewById(R.id.log_out);
         logOut.setOnClickListener(v -> {
-            SharedPreferences settings1 = getActivity().getSharedPreferences(References.USER, MODE_PRIVATE);
-            SharedPreferences.Editor editor = settings1.edit();
+            SharedPreferences.Editor editor = settings.edit();
 
             editor.putBoolean("hasLoggedIn", false);
 
             editor.apply();
 
+            getActivity().finish();
             startActivity(new Intent(getActivity(), LoginActivity.class));
         });
 

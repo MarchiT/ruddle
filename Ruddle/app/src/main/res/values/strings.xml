@@ -14,15 +14,31 @@
         completions."
     </string>
 
-
+    <!-- Strings related to register -->
     <string name="prompt_name">Username</string>
-
     <string name="register">Register</string>
     <string name="action_register">Register</string>
 
-    <string name="footbar_home">Home</string>
-    <string name="footbar_profile">Profile</string>
-    <string name="footbar_new_post">New Post</string>
-    <string name="footbar_in_progress">in Progress</string>
+    <!-- Strings related to Navigation View -->
+    <string name="navigation_home">Home</string>
+    <string name="navigation_profile">Profile</string>
+    <string name="navigation_new_post">New Post</string>
+    <string name="navigation_in_progress">in Progress</string>
+
+    <!-- Strings related to Profile Fragment -->
+    <string name="profile_button_change_picture">Change profile picture</string>
+    <string name="profile_button_in_progress">In progress</string>
+    <string name="profile_button_created">Created</string>
+    <string name="profile_button_solved">Solved</string>
+    <string name="profile_button_log_out">Log out</string>
+
+    <string name="profile_icon">Profile icon</string>
+    <string name="profile_header_cover">Header cover</string>
+
+    <!-- Strings related to Profile Fragment -->
+    <string name="new_post_button_submit">Submit</string>
+    <string name="new_post_hint_title">Title</string>
+    <string name="new_post_hint_body">Body</string>
+    <string name="new_post_hint_answer">Answer</string>
 
 </resources>

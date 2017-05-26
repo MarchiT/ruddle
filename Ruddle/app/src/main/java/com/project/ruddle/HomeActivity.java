@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.project.ruddle.adapters.PictureAdapter;
 import com.project.ruddle.constants.References;
 import com.project.ruddle.fragments.ProfileFragment;
 import com.project.ruddle.handlers.ListsHandler;
@@ -61,7 +60,8 @@ public class HomeActivity extends AppCompatActivity {
                                 Fragment profileFragment = new ProfileFragment();
                                 FragmentManager fragmentManager = getFragmentManager();
                                 fragmentManager.beginTransaction().replace(R.id.list_posts_frame, profileFragment).commit();
-                                AppCompatActivity pictureAdapter = new PictureAdapter();
+
+//                                AppCompatActivity pictureAdapter = new PictureAdapter();
                                 
                                 return true;
                             case R.id.navigation_new_post:

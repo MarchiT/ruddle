@@ -33,25 +33,13 @@ public class RegisterActivity extends AppCompatActivity {
         String password;
         String email;
 
-        View focusView = null;
+        EditText editUsername = (EditText) findViewById(R.id.register_name);
+        EditText editPassword = (EditText) findViewById(R.id.register_password);
+        EditText editEmail = (EditText) findViewById(R.id.register_email);
 
-            EditText editUsername = (EditText) findViewById(R.id.register_name);
-            EditText editPassword = (EditText) findViewById(R.id.register_password);
-            EditText editEmail = (EditText) findViewById(R.id.register_email);
-
-            name = editUsername.getText().toString();
-            password = editPassword.getText().toString();
-            email = editEmail.getText().toString();
-
-            //return back and write message
-            if (!isDataValid(name, password, email)) {
-                Toast.makeText(this, "Wrong email or password", Toast.LENGTH_SHORT).show();
-
-                focusView.requestFocus();
-                //this.recreate();
-               // startActivity(new Intent( RegisterActivity.class));
-
-            }
+        name = editUsername.getText().toString();
+        password = editPassword.getText().toString();
+        email = editEmail.getText().toString();
 
         UserRegisterTask b = new UserRegisterTask();
         b.execute(name, email, password);
