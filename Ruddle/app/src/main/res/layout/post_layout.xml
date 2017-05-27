@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
+    android:background="@drawable/post_border_set"
     android:clickable="true"
     android:onClick="onClick"
-    android:padding="6dp"
-    android:background="@drawable/post_border_set">
+    android:padding="6dp">
 
 
     <ImageView
@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:button="@android:drawable/ic_menu_compass" />
+        android:button="@android:drawable/ic_menu_compass"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/secondLine"
@@ -31,26 +32,26 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/firstLine"
         android:layout_toEndOf="@id/icon"
         android:ellipsize="marquee"
         android:maxLines="2"
         android:text="Description"
         android:textSize="14sp"
-        android:textStyle="italic"
-        android:layout_alignStart="@+id/firstLine" />
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/firstLine"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/secondLine"
+        android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
+        android:layout_toStartOf="@+id/radioButton"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:text="Example post title"
         android:textSize="17sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/radioButton"
-        android:layout_above="@+id/secondLine" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

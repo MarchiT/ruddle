@@ -71,6 +71,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.txtFooter.setText(posts.getJSONObject(position).getString("body"));
 
             String tag = posts.getJSONObject(position).getString("tag");
+            holder.inProgressButton.setVisibility(View.VISIBLE);
             switch (tag) {
                 case "created":
                     holder.inProgressButton.setButtonDrawable(R.drawable.ic_action_name);

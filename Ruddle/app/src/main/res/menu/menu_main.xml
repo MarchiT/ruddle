@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings" />
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/sort"
+        android:title="@string/sort"
+        app:showAsAction="ifRoom">
+        <menu>
+           <item
+               android:id="@+id/sort_by_date"
+               android:title="@string/sory_by_date"
+               app:showAsAction="never"/>
+            <item
+                android:id="@+id/sort_by_difficulty"
+                android:title="@string/sory_by_difficulty"
+                app:showAsAction="never"/>
+            <item
+                android:id="@+id/sory_by_times_solved"
+                android:title="@string/sory_by_times_solved"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
+</menu>
