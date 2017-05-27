@@ -22,7 +22,7 @@ public class RequestHandler {
         request.flush();
         request.close();
         Integer status = connection.getResponseCode();
-        Log.i("POST Response Code:", status.toString());
+        Log.i("POST Response Code", status.toString());
     }
 
     private static String inputRead(HttpURLConnection connection) throws IOException {
@@ -50,7 +50,7 @@ public class RequestHandler {
 
             return inputRead(connection);
         } catch (IOException e) {
-            Log.e("HTTP GET:", e.toString());
+            Log.e("HTTP GET", e.toString());
             return e.toString();
         }
     }
@@ -68,7 +68,7 @@ public class RequestHandler {
             outputPost(connection, urlParams.toString());
             return true;
         } catch (IOException e) {
-            Log.e("HTTP POST:", e.toString());
+            Log.e("HTTP POST", e.toString());
             return false;
         }
     }
@@ -87,7 +87,7 @@ public class RequestHandler {
 
             return inputRead(connection);
         } catch (IOException e) {
-            Log.e("HTTP POST:", e.toString());
+            Log.e("HTTP POST", e.toString());
             return e.toString();
         }
     }

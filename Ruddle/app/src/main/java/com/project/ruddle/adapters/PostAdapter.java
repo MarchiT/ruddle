@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.project.ruddle.R;
@@ -36,23 +37,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private TextView txtHeader;
         private TextView txtFooter;
 
+        private RadioButton inProgressButton;
+
         private ViewHolder(View itemView) {
             super(itemView);
             txtHeader = (TextView) itemView.findViewById(R.id.firstLine);
             txtFooter = (TextView) itemView.findViewById(R.id.secondLine);
+            inProgressButton = (RadioButton) itemView.findViewById(R.id.radioButton);
         }
     }
-
-//    private void add(int position, String item) {
-//        posts.get("titles").add(position, item);
-//        notifyItemInserted(position);
-//    }
-//
-//    private void remove(String item) {
-//        int position = posts.get("titles").indexOf(item);
-//        posts.get("titles").remove(position);
-//        notifyItemRemoved(position);
-//    }
 
     @Override
     public PostAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
@@ -67,6 +60,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
             context.startActivity(intent);
         }));
+
         return new ViewHolder(view);
     }
 
@@ -75,6 +69,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         try {
             holder.txtHeader.setText(posts.getJSONObject(position).getString("title"));
             holder.txtFooter.setText(posts.getJSONObject(position).getString("body"));
+
+            String tag = posts.getJSONObject(position).getString("tag");
+            switch (tag) {
+                case "created":
+                    holder.inProgressButton.setButtonDrawable(R.drawable.ic_action_name);
+                    break;
+                case "solved":
+                    holder.inProgressButton.setButtonDrawable(R.drawable.ic_notifications_black_24dp);
+                    break;
+                default:
+                    holder.inProgressButton.setVisibility(tag.equals("inprogress") ? View.VISIBLE : View.INVISIBLE);
+                    //holder.inProgressButton.setChecked(tag.equals("inprogress"));
+                    break;
+            }
         } catch (JSONException e) {
             Log.e("PostAdapter", "JSONArray position wrong");
         }

@@ -16,13 +16,13 @@ class CreateUserPostsTable extends Migration
         Schema::create('user_posts', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('post_id')->unsigned();
-            $table->enum('choices', array('created', 'solved', 'inprogress'));
+            $table->enum('choices', array('created', 'solved', 'inprogress'))->nullable();
             $table->timestamps();
         });
 
         Schema::table('user_posts', function(Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('post_id')->references('id')->on('posts');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');;
             $table->primary(array('user_id', 'post_id'));
         });
     }

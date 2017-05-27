@@ -18,11 +18,21 @@ class UserPostController extends Controller
   public function create() {
     $data = request()->json()->all();
 
-    UserPost::create([
-        'user_id' => (int)$data['user_id'],
-        'post_id' => (int)$data['post_id'],
-        'choices' => $data['tag'],
-    ]);
+    $toChange = UserPost::where('user_id', (int)$data['user_id'])->get()
+                        ->where('post_id', (int)$data['post_id'])->first();
+
+    if ($toChange == null) {
+      UserPost::create([
+          'user_id' => (int)$data['user_id'],
+          'post_id' => (int)$data['post_id'],
+          'choices' => $data['tag'],
+      ]);
+    }
+    else {
+      $toChange->choices = $data['tag'];
+      $toChange->save();
+    }
+
   }
 
 
