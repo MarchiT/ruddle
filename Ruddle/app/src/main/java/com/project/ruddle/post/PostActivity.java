@@ -74,8 +74,9 @@ public class PostActivity extends AppCompatActivity {
 
             if (!pinButtonChecked) {
                 new TagRegisterTask().execute("inprogress");
+            } else {
+                new TagRegisterTask().execute("nothing");
             }
-            Log.i("Checked changed to", ""+inProgressButton.isChecked());
         });
     }
 

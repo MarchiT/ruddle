@@ -22,7 +22,7 @@ import static com.project.ruddle.constants.References.SERVER_URL;
 import static com.project.ruddle.handlers.RequestHandler.sendPostStatus;
 
 public class NewPostActivity extends AppCompatActivity {
-    //TODO add validation for here too
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class NewPostActivity extends AppCompatActivity {
     private boolean isNull(String part, String part_name){
         boolean valid = (part.length() > 0);
         if(!valid){
-            Toast.makeText(this, part_name + "is empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, part_name + " is empty", Toast.LENGTH_SHORT).show();
         }
         return valid;
     }

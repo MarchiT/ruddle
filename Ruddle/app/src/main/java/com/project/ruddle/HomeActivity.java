@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -32,7 +31,6 @@ public class HomeActivity extends AppCompatActivity {
     private Handler mHandler = new Handler();
 
     private final Runnable mRunnable = new Runnable() {
-
         @Override
         public void run() {
             doubleBackToExitPressedOnce = false;
@@ -40,8 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         if (mHandler != null) { mHandler.removeCallbacks(mRunnable); }
     }
@@ -77,33 +74,30 @@ public class HomeActivity extends AppCompatActivity {
 
         listsHandler.getAllPosts();
 
-        NavigationToggle();
+        navigationToggle();
     }
 
 
-    private void NavigationToggle() {
+    private void navigationToggle() {
         BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.navigation_home:
-                                listsHandler.getAllPosts();
-                                return true;
-                            case R.id.navigation_profile:
-                                Fragment profileFragment = new ProfileFragment();
-                                FragmentManager fragmentManager = getFragmentManager();
-                                fragmentManager.beginTransaction().replace(R.id.list_posts_frame, profileFragment).commit();
-                                return true;
-                            case R.id.navigation_new_post:
-                                startActivity(new Intent(HomeActivity.this, NewPostActivity.class));
-                                return true;
-                            case R.id.navigation_in_progress:
-                                listsHandler.getInProgressPosts();
-                                return true;
-                        }
-                        return false;
+                item -> {
+                    switch (item.getItemId()) {
+                        case R.id.navigation_home:
+                            listsHandler.getAllPosts();
+                            return true;
+                        case R.id.navigation_profile:
+                            Fragment profileFragment = new ProfileFragment();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction().replace(R.id.list_posts_frame, profileFragment).commit();
+                            return true;
+                        case R.id.navigation_new_post:
+                            startActivity(new Intent(HomeActivity.this, NewPostActivity.class));
+                            return true;
+                        case R.id.navigation_in_progress:
+                            listsHandler.getInProgressPosts();
+                            return true;
                     }
+                    return false;
                 };
 
         BottomNavigationView bnv = (BottomNavigationView) findViewById(R.id.navigation_home);

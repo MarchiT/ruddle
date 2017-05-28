@@ -71,18 +71,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.txtFooter.setText(posts.getJSONObject(position).getString("body"));
 
             String tag = posts.getJSONObject(position).getString("tag");
-            holder.inProgressButton.setVisibility(View.VISIBLE);
-            switch (tag) {
-                case "created":
-                    holder.inProgressButton.setButtonDrawable(R.drawable.ic_action_name);
-                    break;
-                case "solved":
-                    holder.inProgressButton.setButtonDrawable(R.drawable.ic_notifications_black_24dp);
-                    break;
-                default:
-                    holder.inProgressButton.setVisibility(tag.equals("inprogress") ? View.VISIBLE : View.INVISIBLE);
-                    //holder.inProgressButton.setChecked(tag.equals("inprogress"));
-                    break;
+
+            if (tag.length() == 0 || tag.equals("null")) {
+                holder.inProgressButton.setVisibility(View.VISIBLE);
+                holder.inProgressButton.setButtonDrawable(R.drawable.ic_post_list_no_relation);
+            } else if (tag.equals("inprogress")) {
+                holder.inProgressButton.setVisibility(View.VISIBLE);
             }
         } catch (JSONException e) {
             Log.e("PostAdapter", "JSONArray position wrong");

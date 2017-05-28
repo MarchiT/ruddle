@@ -3,6 +3,7 @@ package com.project.ruddle.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +27,11 @@ public class PostsFragment extends Fragment {
 
         PostAdapter mAdapter = new PostAdapter(getArguments().getString("posts"), getActivity());
         recyclerView.setAdapter(mAdapter);
+
+        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            mSwipeRefreshLayout.setRefreshing(false);
+        });
 
         return rootView;
     }

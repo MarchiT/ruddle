@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:button="@android:drawable/ic_menu_compass"
+        android:button="@drawable/ic_in_progress"
         android:visibility="invisible" />
 
     <TextView

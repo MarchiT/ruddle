@@ -27,14 +27,17 @@ class UserPostController extends Controller
           'post_id' => (int)$data['post_id'],
           'choices' => $data['tag'],
       ]);
+      return "you came here buddy";
     }
     else {
-      $toChange->choices = $data['tag'];
+      if ((string)$data['tag'] == 'nothing')
+        $toChange->choices = null;
+      else
+        $toChange->choices = (string)$data['tag'];
+
       $toChange->save();
     }
-
   }
-
 
   public function created($user_id) {
     $user = User::find($user_id);
