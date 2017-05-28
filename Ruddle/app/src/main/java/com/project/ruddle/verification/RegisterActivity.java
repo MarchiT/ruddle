@@ -26,8 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
     }
-
-    //TODO add verification like in login
+    
     public void register(View view) {
         String name;
         String password;
@@ -46,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
             //return back and write message
             if (!isDataValid(name, password, email)) {
                 Toast.makeText(this, "Wrong email or password", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, RegisterActivity.class));
             } else {
                 UserRegisterTask b = new UserRegisterTask();
                 b.execute(name, email, password);
