@@ -65,28 +65,38 @@ public class ProfileFragment extends Fragment {
         createdList.setOnClickListener(v -> lists.getCreatedPosts());
 
         Button changeProfileIcon = (Button) rootView.findViewById(R.id.change_profile_picture);
-        changeProfileIcon.setOnClickListener(v -> showFileChooser());
+        changeProfileIcon.setOnClickListener(v -> showFileChooser(References.PICK_IMAGE_REQUEST));
+
+        Button changeHeaderIcon = (Button) rootView.findViewById(R.id.change_profile_header);
+        changeHeaderIcon.setOnClickListener(v -> showFileChooser(References.PICK_HEADER_REQUEST));
 
         return rootView;
     }
 
-    private void showFileChooser() {
+    private void showFileChooser(int req) {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), References.PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), req);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == References.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
+        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                ImageView imageView = (ImageView) getActivity().findViewById(R.id.profile_icon);
+
+                ImageView imageView = new ImageView(getActivity());
+
+                if (requestCode == References.PICK_IMAGE_REQUEST) {
+                    imageView = (ImageView) getActivity().findViewById(R.id.profile_icon);
+                } else if (requestCode == References.PICK_HEADER_REQUEST) {
+                    imageView = (ImageView) getActivity().findViewById(R.id.header_cover_image);
+                }
+
                 imageView.setImageBitmap(bitmap);
 
             } catch (IOException e) {

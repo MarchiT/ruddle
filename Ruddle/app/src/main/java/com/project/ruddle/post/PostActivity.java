@@ -95,11 +95,11 @@ public class PostActivity extends AppCompatActivity {
         if (currentAnswer.toLowerCase().equals(postAnswer.toLowerCase())) {
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
             new PostActivity.TagRegisterTask().execute("solved");
+            finish();
         } else {
             Toast.makeText(this, "Wrong Answer!", Toast.LENGTH_SHORT).show();
         }
 
-        finish();
     }
 
     private class TagRegisterTask extends AsyncTask<String, String, Boolean> {

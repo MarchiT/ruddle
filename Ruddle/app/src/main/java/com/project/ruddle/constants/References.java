@@ -10,4 +10,7 @@ public class References {
 
     //Image request code
     public static final int PICK_IMAGE_REQUEST = 1;
+
+    //Header request code
+    public static final int PICK_HEADER_REQUEST = 2;
 }
