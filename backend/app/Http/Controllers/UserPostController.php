@@ -66,8 +66,6 @@ class UserPostController extends Controller
       // $item['choices'] = $user_posts->first()['choices'];
       $item['name'] = $user['name'];
       $item['email'] = $user['email'];
-      $item['created_at'] = $user['created_at'];
-      $item['updated_at'] = $user['updated_at'];
 
       $data[$i++] = $item;
     }

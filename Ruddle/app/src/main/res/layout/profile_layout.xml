@@ -14,7 +14,7 @@
 
             android:scaleType="centerCrop"
             android:contentDescription="@string/profile_header_cover"
-             android:src="@mipmap/ic_profile_header"/>
+            android:src="@mipmap/ic_profile_header"/>
 
         <ImageView
             android:id="@+id/profile_icon"
