@@ -38,8 +38,22 @@ public class NewPostActivity extends AppCompatActivity {
         String body = editBody.getText().toString();
         String answer = editAnswer.getText().toString();
 
-        NewPostActivity.PostRegisterTask b = new NewPostActivity.PostRegisterTask();
-        b.execute(title, body, answer);
+        if (isPostValid(title, body, answer)) {
+            NewPostActivity.PostRegisterTask b = new NewPostActivity.PostRegisterTask();
+            b.execute(title, body, answer);
+        }
+    }
+
+    private boolean isPostValid(String title, String body, String answer) {
+        return isNull(title, "Title") && isNull(body, "Body") && isNull(answer, "Answer");
+    }
+
+    private boolean isNull(String part, String part_name){
+        boolean valid = (part.length() > 0);
+        if(!valid){
+            Toast.makeText(this, part_name + "is empty", Toast.LENGTH_SHORT).show();
+        }
+        return valid;
     }
 
     private class PostRegisterTask extends AsyncTask<String, String, Boolean> {
