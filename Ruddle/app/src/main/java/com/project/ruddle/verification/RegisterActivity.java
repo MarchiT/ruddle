@@ -26,49 +26,59 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
     }
-    
+
     public void register(View view) {
         String name;
         String password;
         String email;
 
-            View focusView = null;
+        View focusView = null;
 
-            EditText editUsername = (EditText) findViewById(R.id.register_name);
-            EditText editPassword = (EditText) findViewById(R.id.register_password);
-            EditText editEmail = (EditText) findViewById(R.id.register_email);
+        EditText editUsername = (EditText) findViewById(R.id.register_name);
+        EditText editPassword = (EditText) findViewById(R.id.register_password);
+        EditText editEmail = (EditText) findViewById(R.id.register_email);
 
-            name = editUsername.getText().toString();
-            password = editPassword.getText().toString();
-            email = editEmail.getText().toString();
+        name = editUsername.getText().toString();
+        password = editPassword.getText().toString();
+        email = editEmail.getText().toString();
 
-            //return back and write message
-            if (!isDataValid(name, password, email)) {
-                Toast.makeText(this, "Wrong email or password", Toast.LENGTH_SHORT).show();
-            } else {
-                UserRegisterTask b = new UserRegisterTask();
-                b.execute(name, email, password);
-            }
+        //return back and write message
+        if (isDataValid(name, password, email)) {
+            UserRegisterTask b = new UserRegisterTask();
+            b.execute(name, email, password);
+        }
     }
 
     private boolean isDataValid(String name, String password, String email) {
-        return isNameValid(name) && isPassValid(password) && isEmailValid(email);
+        return isNameValid(name) && isEmailValid(email) && isPassValid(password) ;
     }
 
     private boolean isNameValid(String name){
-        return (name.length() > 3);
-    }
-
-    private boolean isPassValid(String password){
-        return (password.length() > 4);
+        boolean valid = (name.length() > 3);
+        if(!valid) {
+            Toast.makeText(this, "Short name", Toast.LENGTH_SHORT).show();
+        }
+        return valid;
     }
 
     private boolean isEmailValid(String email){
         Pattern pattern = Pattern.compile("^[^@\\n\\s]+@[^@\\n]+$");
         Matcher matcher = pattern.matcher(email);
-
-        return matcher.find();
+        boolean valid = matcher.find();
+        if(!valid) {
+            Toast.makeText(this, "Wrong email", Toast.LENGTH_SHORT).show();
+        }
+        return valid;
     }
+
+    private boolean isPassValid(String password){
+        boolean valid = (password.length() > 4);
+        if(!valid) {
+            Toast.makeText(this, "Short password", Toast.LENGTH_SHORT).show();
+        }
+        return valid;
+    }
+
 
     private class UserRegisterTask extends AsyncTask<String, String, Boolean> {
         @Override
