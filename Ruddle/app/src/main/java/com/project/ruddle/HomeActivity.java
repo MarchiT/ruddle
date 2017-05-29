@@ -60,7 +60,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences settings = getSharedPreferences(References.USER, 0);
-        //Get "hasLoggedIn" value. If the value doesn't exist yet false is returned
         boolean hasLoggedIn = settings.getBoolean("hasLoggedIn", false);
 
         if(!hasLoggedIn) {
@@ -109,6 +108,7 @@ public class HomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

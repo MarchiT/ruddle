@@ -26,7 +26,7 @@ public class RequestHandler {
     }
 
     private static String inputRead(HttpURLConnection connection) throws IOException {
-        String line = "";
+        String line;
         InputStreamReader isr = new InputStreamReader(connection.getInputStream());
         BufferedReader reader = new BufferedReader(isr);
         StringBuilder response = new StringBuilder();

@@ -77,7 +77,7 @@ public class ListsHandler implements PostLists {
         new GetPostsTask().execute(SERVER_URL + "posts/solved/" + getUserId());
     }
 
-    public String getUserId() {
+    private String getUserId() {
         SharedPreferences settings = ctx.getSharedPreferences(References.USER, MODE_PRIVATE);
         return settings.getString("user_id", "0");
     }

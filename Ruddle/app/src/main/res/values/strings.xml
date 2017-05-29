@@ -48,6 +48,7 @@
     <string name="post_body">Body</string>
     <string name="post_answer_hint">Enter answer</string>
     <string name="post_submit">Submit</string>
+    <string name="post_inprogress">In Progress</string>
 
     <!-- Strings related to Main menu-->
     <string name="search">Search</string>
@@ -56,5 +57,10 @@
     <string name="sory_by_date">Date</string>
     <string name="sory_by_difficulty">Difficulty</string>
     <string name="sory_by_times_solved">Times solved</string>
+
+    <!-- Strings related to Post layout -->
+    <string name="profile_pic_desc">UserPic</string>
+    <string name="example_desc">Description</string>
+    <string name="example_title">Example post title</string>
 
 </resources>

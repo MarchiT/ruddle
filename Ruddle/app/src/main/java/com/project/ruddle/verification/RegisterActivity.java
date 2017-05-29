@@ -28,21 +28,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void register(View view) {
-        String name;
-        String password;
-        String email;
-
-        View focusView = null;
-
         EditText editUsername = (EditText) findViewById(R.id.register_name);
         EditText editPassword = (EditText) findViewById(R.id.register_password);
         EditText editEmail = (EditText) findViewById(R.id.register_email);
 
-        name = editUsername.getText().toString();
-        password = editPassword.getText().toString();
-        email = editEmail.getText().toString();
+        String name = editUsername.getText().toString();
+        String password = editPassword.getText().toString();
+        String email = editEmail.getText().toString();
 
-        //return back and write message
         if (isDataValid(name, password, email)) {
             UserRegisterTask b = new UserRegisterTask();
             b.execute(name, email, password);
@@ -55,27 +48,39 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isNameValid(String name){
         boolean valid = (name.length() > 3);
-        if(!valid) {
+
+        if(name.length() == 0) {
+            Toast.makeText(this, "Enter name", Toast.LENGTH_SHORT).show();
+        }else if(!valid){
             Toast.makeText(this, "Short name", Toast.LENGTH_SHORT).show();
         }
+
         return valid;
     }
 
     private boolean isEmailValid(String email){
         Pattern pattern = Pattern.compile("^[^@\\n\\s]+@[^@\\n]+$");
         Matcher matcher = pattern.matcher(email);
+
         boolean valid = matcher.find();
-        if(!valid) {
+        if(email.length() == 0) {
+            Toast.makeText(this, "Enter email", Toast.LENGTH_SHORT).show();
+        }else if(!valid){
             Toast.makeText(this, "Wrong email", Toast.LENGTH_SHORT).show();
         }
+
         return valid;
     }
 
     private boolean isPassValid(String password){
         boolean valid = (password.length() > 4);
-        if(!valid) {
+
+        if(password.length() == 0) {
+            Toast.makeText(this, "Enter password", Toast.LENGTH_SHORT).show();
+        }else if(!valid){
             Toast.makeText(this, "Short password", Toast.LENGTH_SHORT).show();
         }
+        
         return valid;
     }
 
@@ -102,7 +107,6 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean success) {
             if(success){
-
                 Toast.makeText(RegisterActivity.this, "Data saved successfully.", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 
